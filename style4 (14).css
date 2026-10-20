@@ -1,0 +1,154 @@
+/* STYLE 4: Monochrome magazine theme. This file uses contrast and clean structure. */
+
+/* Keep the palette nearly black and white with one red accent. */
+:root {
+    --black: #171717;
+    --gray: #686868;
+    --line: #d2d2d2;
+    --white: #ffffff;
+    --red: #d83b32;
+}
+
+/* Use a modern condensed-looking system fallback and strong spacing. */
+body {
+    margin: 0;
+    color: var(--black);
+    background: var(--white);
+    font-family: 'Arial Narrow', 'Franklin Gothic Medium', Arial, sans-serif;
+    line-height: 1.55;
+}
+
+/* The header resembles a crisp magazine cover. */
+.site-header {
+    padding: 2rem 1.5rem 3rem;
+    background: var(--black);
+    color: var(--white);
+}
+
+.header-content,
+.page-content,
+.site-footer {
+    width: min(100% - 3rem, 1100px);
+    margin: 0 auto;
+}
+
+.eyebrow,
+.section-kicker,
+.menu-label {
+    margin: 0 0 0.75rem;
+    color: var(--red);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+h1,
+h2 {
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+h1 {
+    max-width: 900px;
+    margin: 0;
+    font-size: clamp(2.7rem, 9vw, 7rem);
+    letter-spacing: -0.03em;
+}
+
+.intro {
+    max-width: 600px;
+    color: #cfcfcf;
+}
+
+.style-menu {
+    margin-top: 2rem;
+}
+
+/* Make every control a sharp colored rectangle. */
+.style-button {
+    margin: 0.25rem 0.35rem 0.25rem 0;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--white);
+    color: var(--white);
+    background: transparent;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.style-button.active {
+    border-color: #7ee56e;
+    color: var(--black);
+    background: #7ee56e;
+}
+
+.page-content {
+    padding: 3rem 0;
+}
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 8px solid var(--black);
+}
+
+h2 {
+    color: var(--red);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.content-section {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.5fr) 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.content-section h2 {
+    margin-top: 0;
+}
+
+.quote-card {
+    margin: 0;
+    padding: 1.5rem;
+    background: var(--black);
+    color: var(--white);
+}
+
+blockquote {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: bold;
+}
+
+figcaption {
+    margin-top: 1rem;
+    color: #bdbdbd;
+    font-size: 0.85rem;
+}
+
+li {
+    margin: 0.45rem 0;
+}
+
+a {
+    color: var(--red);
+}
+
+.site-footer {
+    padding: 1rem 0 3rem;
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 700px) {
+    .hero-section,
+    .content-section {
+        grid-template-columns: 1fr;
+    }
+}

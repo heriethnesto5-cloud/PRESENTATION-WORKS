@@ -1,0 +1,153 @@
+/* STYLE 2: Dark neon theme. This file creates a bold performance-night feeling. */
+
+/* Define a dark stage palette and bright accent colors. */
+:root {
+    --night: #111827;
+    --night-light: #1f2937;
+    --cyan: #55e6e0;
+    --pink: #ff719f;
+    --lime: #b8f34a;
+    --white: #f5f7fa;
+}
+
+/* Use a clean sans-serif font and a dark page background. */
+body {
+    margin: 0;
+    color: var(--white);
+    background: var(--night);
+    font-family: 'Trebuchet MS', Verdana, sans-serif;
+    line-height: 1.65;
+}
+
+/* Put the title inside a high-contrast stage-like header. */
+.site-header {
+    padding: 3rem 1.5rem;
+    background: linear-gradient(135deg, #111827, #3a183c);
+    border-bottom: 4px solid var(--pink);
+}
+
+.header-content,
+.page-content,
+.site-footer {
+    width: min(100% - 3rem, 1050px);
+    margin: 0 auto;
+}
+
+.eyebrow,
+.section-kicker,
+.menu-label {
+    margin: 0 0 0.5rem;
+    color: var(--cyan);
+    font-size: 0.78rem;
+    font-weight: bold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+h1,
+h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: normal;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+
+h1 {
+    max-width: 800px;
+    margin: 0;
+    color: var(--pink);
+    font-size: clamp(2.6rem, 8vw, 6.5rem);
+}
+
+.intro {
+    max-width: 650px;
+    color: #d8dcea;
+    font-size: 1.1rem;
+}
+
+.style-menu {
+    margin-top: 2.2rem;
+}
+
+/* Rectangle buttons make the controls look like lighting-console keys. */
+.style-button {
+    margin: 0.25rem 0.4rem 0.25rem 0;
+    padding: 0.7rem 1rem;
+    border: 2px solid var(--cyan);
+    color: var(--night);
+    background: var(--cyan);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.style-button.active {
+    border-color: var(--lime);
+    color: var(--night);
+    background: var(--lime);
+}
+
+.page-content {
+    padding: 3.5rem 0;
+}
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+h2 {
+    color: var(--cyan);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.content-section {
+    margin-top: 2rem;
+    padding: 1.6rem;
+    background: var(--night-light);
+    border-left: 5px solid var(--pink);
+}
+
+.quote-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 2rem;
+    background: #2a1c3b;
+    border: 2px solid var(--cyan);
+}
+
+blockquote {
+    margin: 0;
+    color: var(--pink);
+    font-size: 1.45rem;
+    font-weight: bold;
+}
+
+figcaption {
+    margin-top: 1rem;
+    color: var(--cyan);
+}
+
+li::marker {
+    color: var(--lime);
+}
+
+a {
+    color: var(--cyan);
+}
+
+.site-footer {
+    padding: 1rem 0 3rem;
+    color: #aab3c5;
+}
+
+@media (max-width: 700px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+    }
+}

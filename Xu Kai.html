@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The character set lets the page display text correctly. -->
+    <meta charset="UTF-8">
+    <!-- This makes the layout fit phones and tablets as well as computers. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xu Kai | A Life in Motion</title>
+
+    <!--
+        JavaScript changes this one link to swap the page's appearance.
+        The HTML below never changes when a stylesheet button is clicked.
+    -->
+    <link id="theme-stylesheet" rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <!-- The header contains the page title and the style-switching menu. -->
+    <header class="site-header">
+        <div class="header-content">
+            <p class="eyebrow">Actor, dancer, storyteller</p>
+            <h1>Xu Kai: A Life in Motion</h1>
+            <p class="intro">A simple lifestyle profile inspired by Xu Kai's screen presence, creative energy, and love of movement.</p>
+
+            <!-- Every button calls the same function with a different CSS filename. -->
+            <nav class="style-menu" aria-label="Choose a page stylesheet">
+                <p class="menu-label">Choose a stylesheet:</p>
+                <button class="style-button active" data-style="style1.css" type="button">Stylesheet 1</button>
+                <button class="style-button" data-style="style2.css" type="button">Stylesheet 2</button>
+                <button class="style-button" data-style="style3.css" type="button">Stylesheet 3</button>
+                <button class="style-button" data-style="style4.css" type="button">Stylesheet 4</button>
+                <button class="style-button" data-style="" type="button">No Stylesheet</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- The main element holds all of the content that remains identical in every style. -->
+    <main class="page-content">
+        <section class="hero-section">
+            <div>
+                <p class="section-kicker">A calm, creative rhythm</p>
+                <h2>Living between rehearsal, filming, and quiet moments</h2>
+                <p>Xu Kai's lifestyle can be imagined as a balance between focused preparation and relaxed curiosity. Whether learning choreography, stepping onto a set, or enjoying a peaceful afternoon, each day has its own rhythm.</p>
+            </div>
+            <figure class="quote-card">
+                <blockquote>“Keep moving, keep learning, and let each new role become a new adventure.”</blockquote>
+                <figcaption>— A fan-inspired motto</figcaption>
+            </figure>
+        </section>
+
+        <section class="content-section" id="daily-rhythm">
+            <h2>A day in the rhythm</h2>
+            <ol>
+                <li><strong>Morning:</strong> Start slowly with stretching, hydration, and a clear plan.</li>
+                <li><strong>Afternoon:</strong> Focus on rehearsals, filming, reading scripts, or practicing movement.</li>
+                <li><strong>Evening:</strong> Reset with music, a good meal, and time away from the spotlight.</li>
+            </ol>
+        </section>
+
+        <section class="content-section" id="favorite-things">
+            <h2>Favorite things for a balanced life</h2>
+            <ul>
+                <li>Dance and movement that tell a story</li>
+                <li>Comfortable, expressive fashion</li>
+                <li>Travel, new food, and different cultures</li>
+                <li>Quiet time with music and close friends</li>
+            </ul>
+        </section>
+
+        <section class="content-section links-section" id="explore">
+            <h2>Explore the inspiration</h2>
+            <p>Learn more about Chinese drama, performance, and the creative world around Xu Kai:</p>
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Xu_Kai" target="_blank" rel="noopener">Xu Kai on Wikipedia</a></li>
+                <li><a href="https://www.imdb.com/name/nm9577232/" target="_blank" rel="noopener">Xu Kai on IMDb</a></li>
+                <li><a href="#daily-rhythm">Return to the daily rhythm</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- The footer closes the page and shows that the content is still ordinary HTML. -->
+    <footer class="site-footer">
+        <p>Made as a stylesheet-switching learning project.</p>
+    </footer>
+
+    <script>
+        // Find the link element and all menu buttons once when the page loads.
+        const stylesheetLink = document.getElementById('theme-stylesheet');
+        const styleButtons = document.querySelectorAll('.style-button');
+
+        // Change only the linked CSS file, then move the green active state.
+        function switchStylesheet(selectedStyle, clickedButton) {
+            stylesheetLink.disabled = selectedStyle === '';
+            stylesheetLink.href = selectedStyle || 'style1.css';
+
+            styleButtons.forEach((button) => button.classList.remove('active'));
+            clickedButton.classList.add('active');
+        }
+
+        // Give every button the same click behavior.
+        styleButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                switchStylesheet(button.dataset.style, button);
+            });
+        });
+    </script>
+</body>
+</html>

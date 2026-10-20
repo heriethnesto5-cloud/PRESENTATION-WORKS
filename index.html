@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A responsive standard and scientific calculator.">
+    <title>Calcura | Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-shell">
+        <section class="calculator-card" aria-label="Calculator">
+            <header class="calculator-header">
+                <div>
+                    <p class="eyebrow">Precision workspace</p>
+                    <h1>Calcura</h1>
+                </div>
+                <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle light and dark mode">◐</button>
+            </header>
+
+            <div class="mode-switch" role="group" aria-label="Calculator mode">
+                <button class="mode-button active" data-mode="standard" type="button">Standard</button>
+                <button class="mode-button" data-mode="scientific" type="button">Scientific</button>
+            </div>
+
+            <section class="display-panel" aria-live="polite">
+                <div class="display-expression" id="expression-display">0</div>
+                <div class="display-result" id="result-display">0</div>
+            </section>
+
+            <div class="keypad" id="keypad">
+                <button class="key utility" data-action="clear" type="button">AC</button>
+                <button class="key utility" data-action="delete" type="button" aria-label="Delete last character">⌫</button>
+                <button class="key operator" data-value="%" type="button">%</button>
+                <button class="key operator" data-value="÷" type="button">÷</button>
+
+                <button class="key scientific-only" data-value="sin(" type="button">sin</button>
+                <button class="key scientific-only" data-value="cos(" type="button">cos</button>
+                <button class="key scientific-only" data-value="tan(" type="button">tan</button>
+                <button class="key scientific-only" data-value="log(" type="button">log</button>
+
+                <button class="key function" data-action="square" type="button">x²</button>
+                <button class="key function" data-value="√(" type="button">√</button>
+                <button class="key function" data-value="^" type="button">xʸ</button>
+                <button class="key operator" data-value="×" type="button">×</button>
+
+                <button class="key scientific-only" data-value="ln(" type="button">ln</button>
+                <button class="key scientific-only" data-value="π" type="button">π</button>
+                <button class="key scientific-only" data-value="e" type="button">e</button>
+                <button class="key scientific-only" data-action="factorial" type="button">n!</button>
+
+                <button class="key" data-value="7" type="button">7</button>
+                <button class="key" data-value="8" type="button">8</button>
+                <button class="key" data-value="9" type="button">9</button>
+                <button class="key operator" data-value="-" type="button">−</button>
+
+                <button class="key" data-value="4" type="button">4</button>
+                <button class="key" data-value="5" type="button">5</button>
+                <button class="key" data-value="6" type="button">6</button>
+                <button class="key operator" data-value="+" type="button">+</button>
+
+                <button class="key function" data-action="reciprocal" type="button">1/x</button>
+                <button class="key" data-value="1" type="button">1</button>
+                <button class="key" data-value="2" type="button">2</button>
+                <button class="key" data-value="3" type="button">3</button>
+
+                <button class="key function" data-action="toggle-sign" type="button">+/−</button>
+                <button class="key" data-value="(" type="button">(</button>
+                <button class="key" data-value=")" type="button">)</button>
+                <button class="key" data-value="0" type="button">0</button>
+
+                <button class="key" data-value="." type="button">.</button>
+                <button class="key equals" data-action="equals" type="button">=</button>
+            </div>
+            <p class="keyboard-hint">Keyboard ready · Enter to calculate · Esc to clear</p>
+        </section>
+
+        <aside class="history-panel" aria-label="Calculation history">
+            <div class="history-heading">
+                <div>
+                    <p class="eyebrow">Your trail</p>
+                    <h2>History</h2>
+                </div>
+                <button class="text-button" id="clear-history" type="button">Clear all</button>
+            </div>
+            <div class="history-list" id="history-list">
+                <div class="empty-history" id="empty-history">
+                    <span class="empty-icon">∑</span>
+                    <p>Expressions you calculate will appear here.</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

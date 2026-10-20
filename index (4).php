@@ -1,0 +1,26 @@
+<?php
+require_once __DIR__.'/../../config/database.php';require_once __DIR__.'/../../includes/functions.php';require_login();$page_title='Borrowing & Returns';$error='';
+if($_SERVER['REQUEST_METHOD']==='POST' && ($_POST['action']??'')==='issue'){
+  $member=(int)($_POST['member_id']??0);$book=(int)($_POST['book_id']??0);$due=$_POST['due_date']??'';
+  if(!$member||!$book||!$due||$due<date('Y-m-d')){$error='Choose an active member, an available book, and a valid due date.';}
+  else{
+    try{$pdo->beginTransaction();$q=$pdo->prepare("SELECT available_copies FROM books WHERE id=? FOR UPDATE");$q->execute([$book]);$b=$q->fetch();$q=$pdo->prepare("SELECT id FROM members WHERE id=? AND status='Active'");$q->execute([$member]);$m=$q->fetch();
+      if(!$b||$b['available_copies']<1||!$m){throw new RuntimeException('The book is unavailable or the member is inactive.');}
+      $q=$pdo->prepare("INSERT INTO loans(member_id,book_id,borrowed_date,due_date,issued_by) VALUES(?,?,CURDATE(),?,?)");$q->execute([$member,$book,$due,$_SESSION['user_id']]);
+      $q=$pdo->prepare("UPDATE books SET available_copies=available_copies-1 WHERE id=? AND available_copies>0");$q->execute([$book]);if($q->rowCount()!==1){throw new RuntimeException('No available copies remain.');}
+      $pdo->commit();flash('Book issued successfully.');
+    }catch(Throwable $e){if($pdo->inTransaction())$pdo->rollBack();$error=$e instanceof RuntimeException?$e->getMessage():'Unable to issue book.';}
+  }
+}
+if(isset($_GET['return'])){$id=(int)$_GET['return'];try{$pdo->beginTransaction();$q=$pdo->prepare("SELECT book_id,status FROM loans WHERE id=? FOR UPDATE");$q->execute([$id]);$loan=$q->fetch();if(!$loan||$loan['status']!=='Borrowed'){throw new RuntimeException('Loan is not active or does not exist.');}$q=$pdo->prepare("UPDATE loans SET status='Returned',returned_date=CURDATE() WHERE id=? AND status='Borrowed'");$q->execute([$id]);if($q->rowCount()!==1){throw new RuntimeException('This loan has already been returned.');}$q=$pdo->prepare("UPDATE books SET available_copies=LEAST(total_copies,available_copies+1) WHERE id=?");$q->execute([$loan['book_id']]);$pdo->commit();flash('Book return recorded.');}catch(Throwable $e){if($pdo->inTransaction())$pdo->rollBack();flash($e instanceof RuntimeException?$e->getMessage():'Could not process return.','danger');}header('Location: '.app_url('modules/loans/index.php'));exit;}
+$members=$pdo->query("SELECT id,member_number,full_name FROM members WHERE status='Active' ORDER BY full_name")->fetchAll();$books=$pdo->query("SELECT id,title,available_copies FROM books WHERE available_copies>0 ORDER BY title")->fetchAll();
+$rows=$pdo->query("SELECT l.*,b.title,m.full_name,m.member_number FROM loans l JOIN books b ON b.id=l.book_id JOIN members m ON m.id=l.member_id ORDER BY l.id DESC LIMIT 200")->fetchAll();
+require __DIR__.'/../../includes/header.php';?>
+<div class="row"><div class="col-lg-4"><div class="card card-primary"><div class="card-header"><h3 class="card-title">Issue a Book</h3></div><form method="post"><input type="hidden" name="action" value="issue"><div class="card-body"><?php if($error):?><div class="alert alert-danger"><?=e($error)?></div><?php endif;?>
+<div class="form-group"><label>Member *</label><select name="member_id" class="form-control" required><option value="">Choose member</option><?php foreach($members as $m):?><option value="<?=(int)$m['id']?>"><?=e($m['member_number'].' - '.$m['full_name'])?></option><?php endforeach;?></select></div>
+<div class="form-group"><label>Book *</label><select name="book_id" class="form-control" required><option value="">Choose available book</option><?php foreach($books as $b):?><option value="<?=(int)$b['id']?>"><?=e($b['title'].' ('.$b['available_copies'].' available)')?></option><?php endforeach;?></select></div>
+<div class="form-group"><label>Due Date *</label><input type="date" name="due_date" class="form-control" min="<?=date('Y-m-d',strtotime('+1 day'))?>" value="<?=date('Y-m-d',strtotime('+14 days'))?>" required></div></div><div class="card-footer"><button class="btn btn-primary">Issue Book</button></div></form></div></div>
+<div class="col-lg-8"><div class="card"><div class="card-header"><h3 class="card-title">Loan History</h3></div><div class="card-body table-responsive"><table class="table table-bordered table-striped"><thead><tr><th>ID</th><th>Book</th><th>Member</th><th>Borrowed</th><th>Due</th><th>Status</th><th>Action</th></tr></thead><tbody>
+<?php foreach($rows as $r):$overdue=$r['status']==='Borrowed'&&$r['due_date']<date('Y-m-d');?><tr><td><?=(int)$r['id']?></td><td><?=e($r['title'])?></td><td><?=e($r['member_number'].' - '.$r['full_name'])?></td><td><?=e($r['borrowed_date'])?></td><td><?=e($r['due_date'])?></td><td><span class="badge badge-<?=$r['status']==='Returned'?'success':($overdue?'danger':'warning')?>"><?=$overdue?'Overdue':e($r['status'])?></span></td><td><?php if($r['status']==='Borrowed'):?><a href="?return=<?=(int)$r['id']?>" class="btn btn-success btn-sm" onclick="return confirm('Record this book as returned?')">Return</a><?php else:?>—<?php endif;?></td></tr><?php endforeach;?>
+<?php if(!$rows):?><tr><td colspan="7" class="text-center">No loans recorded.</td></tr><?php endif;?></tbody></table></div></div></div></div>
+<?php require __DIR__.'/../../includes/footer.php';?>

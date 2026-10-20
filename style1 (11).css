@@ -1,0 +1,154 @@
+/* STYLE 1: Warm editorial theme. This file controls the first visual design. */
+
+/* Set the overall colors, font, spacing, and page background. */
+:root {
+    --ink: #2f2430;
+    --muted: #765b61;
+    --accent: #c85c45;
+    --accent-dark: #8f3f35;
+    --paper: #fff8ee;
+    --panel: #f5dfcf;
+}
+
+/* Use a readable serif style and center the page in a warm paper-like background. */
+body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.7;
+}
+
+/* Give the header a strong editorial banner. */
+.site-header {
+    padding: 4rem 1.5rem 3rem;
+    color: #fff8ee;
+    background: var(--accent-dark);
+}
+
+/* Keep wide content comfortable to read. */
+.header-content,
+.page-content,
+.site-footer {
+    width: min(100% - 3rem, 980px);
+    margin: 0 auto;
+}
+
+/* Style the small introductory label. */
+.eyebrow,
+.section-kicker,
+.menu-label {
+    margin: 0 0 0.5rem;
+    color: #f2b28c;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* Make the title the main visual focus. */
+h1,
+h2 {
+    line-height: 1.15;
+}
+
+h1 {
+    max-width: 700px;
+    margin: 0;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+}
+
+.intro {
+    max-width: 620px;
+    color: #ffe5d3;
+    font-size: 1.15rem;
+}
+
+/* Arrange the stylesheet controls in a flexible row. */
+.style-menu {
+    margin-top: 2.5rem;
+}
+
+.style-button {
+    margin: 0.25rem 0.35rem 0.25rem 0;
+    padding: 0.7rem 1rem;
+    border: 2px solid #f2b28c;
+    color: #fff8ee;
+    background: var(--accent);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* Green shows which stylesheet is active. */
+.style-button.active {
+    border-color: #b9f18c;
+    color: #18351c;
+    background: #70c56b;
+}
+
+/* Add generous vertical rhythm to each content block. */
+.page-content {
+    padding: 3rem 0;
+}
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #e5c4b2;
+}
+
+h2 {
+    color: var(--accent-dark);
+    font-size: clamp(1.7rem, 4vw, 3rem);
+}
+
+.content-section {
+    padding: 2rem 0;
+    border-bottom: 1px solid #e5c4b2;
+}
+
+/* Turn the quote into a visible paper panel. */
+.quote-card {
+    margin: 0;
+    padding: 2rem;
+    background: var(--panel);
+    box-shadow: 8px 8px 0 #e8b59e;
+}
+
+blockquote {
+    margin: 0;
+    color: var(--accent-dark);
+    font-size: 1.35rem;
+    font-style: italic;
+}
+
+figcaption {
+    margin-top: 1rem;
+    color: var(--muted);
+}
+
+li {
+    margin: 0.5rem 0;
+}
+
+a {
+    color: var(--accent-dark);
+    font-weight: bold;
+}
+
+.site-footer {
+    padding: 2rem 0 3rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+/* Stack the editorial layout on narrow screens. */
+@media (max-width: 700px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+    }
+}
